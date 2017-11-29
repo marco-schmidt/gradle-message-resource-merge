@@ -1,0 +1,9 @@
+pluginManagement.repositories {
+  gradlePluginPortal()
+}
+
+include ":lib1"
+include ":lib2"
+include ":myapp"
+
+rootProject.name = 'gradle-message-resource-merge'
