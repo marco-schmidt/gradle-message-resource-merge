@@ -5,6 +5,7 @@ bin/
 .project
 
 # Gradle
+!gradle-wrapper.jar
 .gradle/
 build/
 
