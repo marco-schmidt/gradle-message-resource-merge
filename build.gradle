@@ -4,14 +4,27 @@ buildscript {
   }
 }
 
-task wrapper(type: Wrapper) {
-  gradleVersion = '4.4-rc-4'
+wrapper {
+  gradleVersion = '5.6.1'
 }
 
 subprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
   sourceCompatibility = 1.8
+}
+
+task iterRes {
+  subprojects.each { proj -> 
+    println proj.name
+    proj.sourceSets.main.resources.each  { 
+      val ->
+        def name = val.getName()  
+        println name + ":" + val.getAbsolutePath()
+        java.nio.file.Files.lines(val.toPath()).each { line -> println line} 
+     }
+  }
+
 }
 
 defaultTasks 'clean', ':myapp:run'
