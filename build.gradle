@@ -12,9 +12,26 @@ subprojects {
   apply plugin: 'java'
   apply plugin: 'eclipse'
   sourceCompatibility = 1.8
+
+  task iterDeps {
+      DependencySet dependencySet = configurations.compile.dependencies
+
+        dependencySet.each {
+            logger.info "$it.group:$it.name:$it.version"
+        }
+    
+  }
+  task merge() {
+    doLast {
+      println "merge " + project.name
+    }
+  }
+  compileJava.finalizedBy(merge)
+
 }
 
 task iterRes {
+  doLast {
   subprojects.each { proj -> 
     println proj.name
     proj.sourceSets.main.resources.each  { 
@@ -24,7 +41,7 @@ task iterRes {
         java.nio.file.Files.lines(val.toPath()).each { line -> println line} 
      }
   }
-
+}
 }
 
 defaultTasks 'clean', ':myapp:run'
